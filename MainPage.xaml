@@ -1,41 +1,57 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+﻿<!-- This is a ContentPage element that defines the user interface for the Lab2.MainPage class. -->
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:DataType="model:BusinessLogic" 
+             xmlns:model="clr-namespace:Lab2.Model"
              x:Class="Lab2.MainPage">
 
     <ScrollView>
         <VerticalStackLayout
             Spacing="25"
             Padding="30,0"
-            VerticalOptions="Center">
+            VerticalOptions="Start">
 
-            <Image
-                Source="dotnet_bot.png"
-                SemanticProperties.Description="Cute dot net bot waving hi to you!"
-                HeightRequest="200"
-                HorizontalOptions="Center" />
+            <!-- This is a Label element displaying the text "Airports" with a specified font size. -->
+            <Label HorizontalTextAlignment="Start" Text="Airports" FontSize="Large"/>
 
-            <Label
-                Text="Hello, World!"
-                SemanticProperties.HeadingLevel="Level1"
-                FontSize="32"
-                HorizontalOptions="Center" />
+            <!-- This CollectionView binds to the "Airports" property in the ViewModel and displays a list of airports. -->
+            <CollectionView x:Name="CV" ItemsSource="{Binding Airports}" SelectionMode="Single">
+                <CollectionView.ItemTemplate>
+                    <!-- This DataTemplate defines how each item in the CollectionView should be displayed. -->
+                    <DataTemplate x:DataType="model:Airport">
+                        <!-- This Grid layout arranges elements in a grid with specified rows and columns. -->
+                        <Grid RowDefinitions="*" ColumnDefinitions="1.5*,2*,2*,*,.5*">
+                            <!-- These Labels display properties of the Airport model. -->
+                            <Label Grid.Column="0" Text="{Binding Id}" VerticalTextAlignment="Center"/>
+                            <Label Grid.Column="1" Text="{Binding City}" VerticalTextAlignment="Center"/>
+                            <Label Grid.Column="2" Text="{Binding DateVisited}" VerticalTextAlignment="Center"/>
+                            <Label Grid.Column="3" Text="{Binding Rating}" VerticalTextAlignment="Center" />
+                            <!-- This Button allows users to delete an airport and triggers the "DeleteAirport_Clicked" event. -->
+                            <Button Grid.Column="4" BackgroundColor="Transparent"  Clicked="DeleteAirport_Clicked"  ImageSource="trash.png" />
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
 
-            <Label
-                Text="Welcome to .NET Multi-platform App UI"
-                SemanticProperties.HeadingLevel="Level2"
-                SemanticProperties.Description="Welcome to dot net Multi platform App U I"
-                FontSize="18"
-                HorizontalOptions="Center" />
+            <!-- This Grid layout arranges Entry fields and buttons for adding and editing airports. -->
+            <Grid RowDefinitions="*" ColumnDefinitions="*,2*,2*,*">
+                <Entry Grid.Column="0" Placeholder="Id" x:Name="IdENT"/>
+                <Entry Grid.Column="1" Placeholder="City" x:Name="CityENT"/>
+                <Entry Grid.Column="2" Placeholder="Date Visited" x:Name="DateVisitedENT"/>
+                <Entry Grid.Column="3" Placeholder="Rating" x:Name="RatingENT"/>
+            </Grid>
 
-            <Button
-                x:Name="CounterBtn"
-                Text="Click me"
-                SemanticProperties.Hint="Counts the number of times you click"
-                Clicked="OnCounterClicked"
-                HorizontalOptions="Center" />
+            <!-- This Button allows users to add an airport and triggers the "AddAirport_Clicked" event. -->
+            <Button TextColor="White" Text="Add Airport" Clicked="AddAirport_Clicked"/>
 
+            <!-- This Button allows users to edit an airport and triggers the "EditAirport_Clicked" event. -->
+            <Button TextColor="White" Text="Edit Airport" Clicked="EditAirport_Clicked"/>
+
+            <!-- This Button allows users to edit an airport and triggers the "CalculateStatistics_Clicked" event. -->
+            <Button TextColor="White" Text="Calculate Statistics" Clicked="CalculateStatistics_Clicked"/>
+
+            <!-- This Label element displays the statistics text returned from the CalculateStatistics_Clicked event. -->
+            <Label x:Name="StatisticsLabel" FontSize="Large" TextColor="Black" VerticalOptions="Start" />
         </VerticalStackLayout>
     </ScrollView>
-
 </ContentPage>
