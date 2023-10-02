@@ -1,0 +1,374 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Lab2</name>
+    </assembly>
+    <members>
+        <member name="M:Lab2.MainPage.#ctor">
+            <summary>
+            Initializes a new instance of the MainPage class.
+            Sets the binding context to the BusinessLogic class.
+            </summary>
+        </member>
+        <member name="M:Lab2.MainPage.AddAirport_Clicked(System.Object,System.EventArgs)">
+            <summary>
+            Handles the event when the "Add Airport" button is clicked.
+            </summary>
+            <param name="sender">The sender of the event.</param>
+            <param name="e">Event arguments.</param>
+        </member>
+        <member name="M:Lab2.MainPage.DeleteAirport_Clicked(System.Object,System.EventArgs)">
+            <summary>
+            Handles the event when the "Delete Airport" button is clicked.
+            </summary>
+            <param name="sender">The sender of the event.</param>
+            <param name="e">Event arguments.</param>
+        </member>
+        <member name="M:Lab2.MainPage.EditAirport_Clicked(System.Object,System.EventArgs)">
+            <summary>
+            Handles the event when the "Edit Airport" button is clicked.
+            </summary>
+            <param name="sender">The sender of the event.</param>
+            <param name="e">Event arguments.</param>
+        </member>
+        <member name="T:Lab2.MauiProgram">
+            <summary>
+            Static class responsible for configuring and creating a MauiApp instance.
+            </summary>
+        </member>
+        <member name="F:Lab2.MauiProgram.BusinessLogic">
+            <summary>
+            Static instance of the IBusinessLogic implementation for managing business logic.
+            </summary>
+        </member>
+        <member name="M:Lab2.MauiProgram.CreateMauiApp">
+            <summary>
+            Creates and configures a MauiApp instance for the application.
+            </summary>
+            <returns>The configured MauiApp instance.</returns>
+        </member>
+        <member name="T:Lab2.Model.Airport">
+            <summary>
+            Represents an airport with properties for various details.
+            Implements INotifyPropertyChanged for data binding.
+            </summary>
+        </member>
+        <member name="M:Lab2.Model.Airport.#ctor">
+            <summary>
+            Default constructor for the Airport class.
+            </summary>
+        </member>
+        <member name="M:Lab2.Model.Airport.#ctor(System.String,System.String,System.DateTime,System.Int32)">
+            <summary>
+            Parameterized constructor for the Airport class.
+            Initializes airport properties with specified values.
+            </summary>
+            <param name="id">The unique identifier of the airport.</param>
+            <param name="city">The city where the airport is located.</param>
+            <param name="date">The date when the airport was visited.</param>
+            <param name="rating">The rating of the airport.</param>
+        </member>
+        <member name="E:Lab2.Model.Airport.PropertyChanged">
+            <summary>
+            Event handler for property changes, required for data binding.
+            </summary>
+        </member>
+        <member name="P:Lab2.Model.Airport.Id">
+            <summary>
+            Gets or sets the unique identifier of the airport.
+            Triggers property change notification when modified.
+            </summary>
+        </member>
+        <member name="P:Lab2.Model.Airport.City">
+            <summary>
+            Gets or sets the city where the airport is located.
+            Triggers property change notification when modified.
+            </summary>
+        </member>
+        <member name="P:Lab2.Model.Airport.DateVisited">
+            <summary>
+            Gets or sets the date when the airport was visited.
+            </summary>
+        </member>
+        <member name="P:Lab2.Model.Airport.Rating">
+            <summary>
+            Gets or sets the rating of the airport.
+            Triggers property change notification when modified.
+            Validates that the rating is within the range of 1 to 5.
+            </summary>
+        </member>
+        <member name="M:Lab2.Model.Airport.OnPropertyChanged(System.String)">
+            <summary>
+            Invokes the PropertyChanged event to notify property changes.
+            </summary>
+            <param name="propertyName">The name of the property that changed.</param>
+        </member>
+        <member name="M:Lab2.Model.Airport.ToString">
+            <summary>
+            Returns a formatted string representation of the airport.
+            </summary>
+            <returns>A string containing airport details.</returns>
+        </member>
+        <member name="T:Lab2.Model.BusinessLogic">
+            <summary>
+            Implementation of the IBusinessLogic interface for managing airport data and operations.
+            </summary>
+        </member>
+        <member name="P:Lab2.Model.BusinessLogic.Airports">
+            <summary>
+            Gets an ObservableCollection of airports, bound to the database's SelectAllAirports method.
+            </summary>
+        </member>
+        <member name="M:Lab2.Model.BusinessLogic.#ctor">
+            <summary>
+            Default constructor initializes the database.
+            </summary>
+        </member>
+        <member name="M:Lab2.Model.BusinessLogic.AddAirport(System.String,System.String,System.String,System.String)">
+            <summary>
+            Adds a new airport to the database.
+            </summary>
+            <param name="id">The unique identifier of the airport.</param>
+            <param name="city">The city where the airport is located.</param>
+            <param name="dateVisited">The date when the airport was visited.</param>
+            <param name="rating">The rating of the airport.</param>
+            <returns>An AirportAdditionError indicating the result of the addition.</returns>
+        </member>
+        <member name="M:Lab2.Model.BusinessLogic.DuplicateAirportAbsent(System.String)">
+            <summary>
+            Checks if an airport with the given ID already exists in the database.
+            </summary>
+            <param name="id">The unique identifier of the airport to check.</param>
+            <returns>True if the airport with the given ID does not exist; otherwise, false.</returns>
+        </member>
+        <member name="M:Lab2.Model.BusinessLogic.DeleteAirport(System.String)">
+            <summary>
+            Deletes an airport from the database by its ID.
+            </summary>
+            <param name="id">The unique identifier of the airport to delete.</param>
+            <returns>An AirportDeletionError indicating the result of the deletion.</returns>
+        </member>
+        <member name="M:Lab2.Model.BusinessLogic.EditAirport(Lab2.Model.Airport,System.String,System.String,System.String)">
+            <summary>
+            Edits an existing airport's details.
+            </summary>
+            <param name="currentAirport">The airport to edit.</param>
+            <param name="city">The new city value.</param>
+            <param name="dateVisited">The new dateVisited value.</param>
+            <param name="rating">The new rating value.</param>
+            <returns>An AirportEditError indicating the result of the edit operation.</returns>
+        </member>
+        <member name="T:Lab2.Model.Database">
+            <summary>
+            Represents a database for managing airport data and operations.
+            Implements the IDatabase interface.
+            </summary>
+        </member>
+        <member name="M:Lab2.Model.Database.#ctor">
+            <summary>
+            Initializes a new instance of the Database class.
+            </summary>
+        </member>
+        <member name="M:Lab2.Model.Database.SelectAllAirports">
+            <summary>
+            Selects all airports from the database.
+            </summary>
+            <returns>An ObservableCollection of airports.</returns>
+        </member>
+        <member name="M:Lab2.Model.Database.SelectAirport(System.String)">
+            <summary>
+            Selects an airport by its unique ID.
+            </summary>
+            <param name="id">The unique identifier of the airport.</param>
+            <returns>The selected airport or null if not found.</returns>
+        </member>
+        <member name="M:Lab2.Model.Database.InsertAirport(Lab2.Model.Airport)">
+            <summary>
+            Inserts a new airport into the database.
+            </summary>
+            <param name="airport">The airport to insert.</param>
+            <returns>An AirportAdditionError indicating the result of the insertion.</returns>
+        </member>
+        <member name="M:Lab2.Model.Database.DeleteAirport(Lab2.Model.Airport)">
+            <summary>
+            Deletes an airport from the database.
+            </summary>
+            <param name="airportToDelete">The airport to delete.</param>
+            <returns>An AirportDeletionError indicating the result of the deletion.</returns>
+        </member>
+        <member name="M:Lab2.Model.Database.UpdateAirport(Lab2.Model.Airport,System.String,System.DateTime,System.Int32)">
+            <summary>
+            Updates the details of an existing airport.
+            </summary>
+            <param name="currentAirport">The airport to update.</param>
+            <param name="city">The new city value.</param>
+            <param name="date">The new date value.</param>
+            <param name="rating">The new rating value.</param>
+            <returns>An AirportEditError indicating the result of the update operation.</returns>
+        </member>
+        <member name="T:Lab2.Model.AirportAdditionError">
+            <summary>
+            Represents possible errors that can occur when adding an airport.
+            </summary>
+        </member>
+        <member name="F:Lab2.Model.AirportAdditionError.InvalidIdLength">
+            <summary>
+            The length of the airport ID is invalid.
+            </summary>
+        </member>
+        <member name="F:Lab2.Model.AirportAdditionError.InvalidNumStars">
+            <summary>
+            The provided rating value is invalid.
+            </summary>
+        </member>
+        <member name="F:Lab2.Model.AirportAdditionError.InvalidDate">
+            <summary>
+            The provided date is invalid.
+            </summary>
+        </member>
+        <member name="F:Lab2.Model.AirportAdditionError.InvalidCityLength">
+            <summary>
+            The length of the city name is invalid.
+            </summary>
+        </member>
+        <member name="F:Lab2.Model.AirportAdditionError.DBAdditionError">
+            <summary>
+            An error occurred during database addition.
+            </summary>
+        </member>
+        <member name="F:Lab2.Model.AirportAdditionError.ExistingAirportError">
+            <summary>
+            An airport with the same ID already exists.
+            </summary>
+        </member>
+        <member name="F:Lab2.Model.AirportAdditionError.NoError">
+            <summary>
+            No error occurred during the airport addition.
+            </summary>
+        </member>
+        <member name="T:Lab2.Model.AirportDeletionError">
+            <summary>
+            Represents possible errors that can occur when deleting an airport.
+            </summary>
+        </member>
+        <member name="F:Lab2.Model.AirportDeletionError.AirportNotFound">
+            <summary>
+            The airport to delete was not found.
+            </summary>
+        </member>
+        <member name="F:Lab2.Model.AirportDeletionError.DBDeletionError">
+            <summary>
+            An error occurred during database deletion.
+            </summary>
+        </member>
+        <member name="F:Lab2.Model.AirportDeletionError.NoError">
+            <summary>
+            No error occurred during the airport deletion.
+            </summary>
+        </member>
+        <member name="T:Lab2.Model.AirportEditError">
+            <summary>
+            Represents possible errors that can occur when editing an airport.
+            </summary>
+        </member>
+        <member name="F:Lab2.Model.AirportEditError.AirportNotFound">
+            <summary>
+            The airport to edit was not found.
+            </summary>
+        </member>
+        <member name="F:Lab2.Model.AirportEditError.InvalidFieldError">
+            <summary>
+            An invalid field value was provided for editing.
+            </summary>
+        </member>
+        <member name="F:Lab2.Model.AirportEditError.DBEditError">
+            <summary>
+            An error occurred during database editing.
+            </summary>
+        </member>
+        <member name="F:Lab2.Model.AirportEditError.NoError">
+            <summary>
+            No error occurred during the airport editing.
+            </summary>
+        </member>
+        <member name="T:Lab2.Model.IBusinessLogic">
+            <summary>
+            Represents the interface for business logic related to airports.
+            </summary>
+        </member>
+        <member name="P:Lab2.Model.IBusinessLogic.Airports">
+            <summary>
+            Gets an ObservableCollection of airports.
+            </summary>
+        </member>
+        <member name="M:Lab2.Model.IBusinessLogic.AddAirport(System.String,System.String,System.String,System.String)">
+            <summary>
+            Adds a new airport to the collection.
+            </summary>
+            <param name="id">The unique identifier of the airport.</param>
+            <param name="city">The city where the airport is located.</param>
+            <param name="dateVisited">The date the airport was visited.</param>
+            <param name="rating">The rating of the airport.</param>
+            <returns>An AirportAdditionError indicating the result of the addition.</returns>
+        </member>
+        <member name="M:Lab2.Model.IBusinessLogic.DeleteAirport(System.String)">
+            <summary>
+            Deletes an airport from the collection.
+            </summary>
+            <param name="id">The unique identifier of the airport to delete.</param>
+            <returns>An AirportDeletionError indicating the result of the deletion.</returns>
+        </member>
+        <member name="M:Lab2.Model.IBusinessLogic.EditAirport(Lab2.Model.Airport,System.String,System.String,System.String)">
+            <summary>
+            Edits the details of an existing airport.
+            </summary>
+            <param name="currentAirport">The airport to edit.</param>
+            <param name="city">The new city value.</param>
+            <param name="dateVisited">The new date value.</param>
+            <param name="rating">The new rating value.</param>
+            <returns>An AirportEditError indicating the result of the edit operation.</returns>
+        </member>
+        <member name="T:Lab2.Model.IDatabase">
+            <summary>
+            Represents the interface for a database containing airport data.
+            </summary>
+        </member>
+        <member name="M:Lab2.Model.IDatabase.SelectAllAirports">
+            <summary>
+            Selects and returns all airports as an ObservableCollection.
+            </summary>
+            <returns>An ObservableCollection of Airport objects.</returns>
+        </member>
+        <member name="M:Lab2.Model.IDatabase.SelectAirport(System.String)">
+            <summary>
+            Selects and returns an airport by its unique identifier.
+            </summary>
+            <param name="id">The unique identifier of the airport to select.</param>
+            <returns>The selected Airport object or null if not found.</returns>
+        </member>
+        <member name="M:Lab2.Model.IDatabase.InsertAirport(Lab2.Model.Airport)">
+            <summary>
+            Inserts a new airport into the database.
+            </summary>
+            <param name="airport">The Airport object to insert.</param>
+            <returns>An AirportAdditionError indicating the result of the insertion.</returns>
+        </member>
+        <member name="M:Lab2.Model.IDatabase.DeleteAirport(Lab2.Model.Airport)">
+            <summary>
+            Deletes an airport from the database.
+            </summary>
+            <param name="airportToDelete">The Airport object to delete.</param>
+            <returns>An AirportDeletionError indicating the result of the deletion.</returns>
+        </member>
+        <member name="M:Lab2.Model.IDatabase.UpdateAirport(Lab2.Model.Airport,System.String,System.DateTime,System.Int32)">
+            <summary>
+            Updates the details of an existing airport in the database.
+            </summary>
+            <param name="currentAirport">The Airport object to update.</param>
+            <param name="city">The new city value.</param>
+            <param name="date">The new date value.</param>
+            <param name="rating">The new rating value.</param>
+            <returns>An AirportEditError indicating the result of the update operation.</returns>
+        </member>
+    </members>
+</doc>
