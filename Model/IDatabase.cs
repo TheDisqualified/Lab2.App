@@ -1,12 +1,18 @@
 ﻿using System.Collections.ObjectModel;
 
-namespace Lab2.Model;
-
-public interface IDatabase
+namespace Lab2.Model
 {
-    public ObservableCollection<Airport> SelectAllAirports();
-    public Airport SelectAirport(string id);
-    public AirportAdditionError InsertAirport(Airport airport);
-    public AirportDeletionError DeleteAirport(Airport airportToDelete);
-    public AirportEditError UpdateAirport(Airport currentAirport, String city, DateTime date, int rating);
+    /// <summary>
+    /// Represents the interface for a database containing airport data.
+    /// </summary>
+    public interface IDatabase
+    {
+        ObservableCollection<Airport>? SelectAllAirports();
+        Airport SelectAirport(string id);
+        Boolean InsertAirport(Airport airport);
+        Boolean DeleteAirport(Airport airportToDelete);
+        Boolean UpdateAirport(Airport currentAirport, string city, DateTime date, int rating);
+    }
 }
+
+
