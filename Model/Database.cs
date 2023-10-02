@@ -1,5 +1,4 @@
-﻿using Microsoft.Extensions.Configuration;
-using Npgsql;
+﻿using Npgsql;
 using System.Collections.ObjectModel;
 using System.Text.Json;
 
@@ -15,18 +14,7 @@ namespace Lab2.Model
         private string airportsFile;
         private ObservableCollection<Airport> airports;
         private JsonSerializerOptions options;
-
-        /*
-        private string connString;
-
-        /// <summary>
-        /// Constructs an AirportRepository with the specified database connection string.
-        /// </summary>
-        /// <param name="connectionString">The database connection string.</param>
-        public AirportRepository(string connectionString)
-        {
-            connString = connectionString;
-        } */
+        private String connString;
 
         /// <summary>
         /// Initializes a new instance of the Database class.
@@ -35,8 +23,8 @@ namespace Lab2.Model
         {
             SelectAllAirports();
             options = new JsonSerializerOptions { WriteIndented = true };
-
-            CreateTable(GetConnectinoString()); // Delete after first use
+            connString = GetConnectinoString();
+            CreateTable(connString); // Delete after first use
         }
 
         /// <summary>
@@ -46,10 +34,10 @@ namespace Lab2.Model
         static String GetConnectinoString()
         {
             var connStringBuilder = new NpgsqlConnectionStringBuilder();
-            connStringBuilder.Host = "stormy-ocelot-12775.5xj.cockroachlabs.cloud";
+            connStringBuilder.Host = "wool-hermit-13044.5xj.cockroachlabs.cloud";
             connStringBuilder.Port = 26257;
             connStringBuilder.SslMode = SslMode.VerifyFull;
-            connStringBuilder.Username = "mprogers";
+            connStringBuilder.Username = "evan";
             connStringBuilder.Password = FetchPassword();
             connStringBuilder.Database = "defaultdb";
             connStringBuilder.ApplicationName = "whatever";
@@ -64,8 +52,7 @@ namespace Lab2.Model
         /// <returns>The password or an empty string if not found.</returns>
         static String FetchPassword()
         {
-            IConfiguration config = new ConfigurationBuilder().AddUserSecretes<Database>().Build();
-            return config["CockroachDBPassword"] ?? "";
+            return "5qO3kNy6OUQjdVPyltuzWg";
         }
 
         /// <summary>
