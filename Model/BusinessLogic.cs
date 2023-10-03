@@ -72,13 +72,17 @@ namespace Lab2.Model
         private bool DuplicateAirportAbsent(String id)
         {
             ObservableCollection<Airport> airports = Database.SelectAllAirports();
-            foreach (Airport existingAirport in airports)
+            if (airports != null)
             {
-                if (existingAirport.Id.Equals(id))
+                foreach (Airport existingAirport in airports)
                 {
-                    return false;
+                    if (existingAirport.Id.Equals(id))
+                    {
+                        return false;
+                    }
                 }
             }
+
             return true;
         }
 

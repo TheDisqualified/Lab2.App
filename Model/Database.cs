@@ -21,17 +21,18 @@ namespace Lab2.Model
         /// </summary>
         public Database()
         {
-            SelectAllAirports();
+
             options = new JsonSerializerOptions { WriteIndented = true };
-            connString = GetConnectinoString();
-            CreateTable(connString); // Delete after first use
+            connString = GetConnectionString();
+            CreateTable(connString);
+            SelectAllAirports();
         }
 
         /// <summary>
         /// Gets the database connection string.
         /// </summary>
         /// <returns>The connection string.</returns>
-        static String GetConnectinoString()
+        static String GetConnectionString()
         {
             var connStringBuilder = new NpgsqlConnectionStringBuilder();
             connStringBuilder.Host = "wool-hermit-13044.5xj.cockroachlabs.cloud";
@@ -52,8 +53,9 @@ namespace Lab2.Model
         /// <returns>The password or an empty string if not found.</returns>
         static String FetchPassword()
         {
-            return "5qO3kNy6OUQjdVPyltuzWg";
+            return "1jQg7R25r2cL7ItPA4ISRA";
         }
+
 
         /// <summary>
         /// Creates the "Airports" table in the database if it doesn't exist.
@@ -63,8 +65,10 @@ namespace Lab2.Model
         {
             using var conn = new NpgsqlConnection(connString);
             conn.Open();
-            new NpgsqlCommand("CREATE TABLE IF NOT EXiSTS Airports (id VARCHAR(4) PRIMARY KEY, city VARCHAR(255), rating INT, dateVisisted TIMESTAMP", conn).ExecuteNonQuery();
+
+            new NpgsqlCommand("CREATE TABLE IF NOT EXISTS Airports (id VARCHAR(4) PRIMARY KEY, city VARCHAR(255), rating INT, datevisited TIMESTAMP)", conn).ExecuteNonQuery();
         }
+
 
         /// <summary>
         /// Selects all airports from the database.
@@ -72,12 +76,17 @@ namespace Lab2.Model
         /// <returns>An ObservableCollection containing all airports.</returns>
         public ObservableCollection<Airport>? SelectAllAirports()
         {
-            airports.Clear();
+            if (airports != null)
+            {
+                airports.Clear();
+            }
+
             var conn = new NpgsqlConnection(connString);
             conn.Open();
 
-            using var cmd = new NpgsqlCommand("SELECT id, city, rating, dateVisited FROM airports", conn);
+            using var cmd = new NpgsqlCommand("SELECT id, city, rating, datevisited FROM airports", conn);
             using var reader = cmd.ExecuteReader();
+
 
             while (reader.Read())
             {

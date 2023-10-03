@@ -5,7 +5,7 @@ using Microsoft.Extensions.Logging;
 Name: Evan H 
 Description: Lab 3
 Date: 10/2/2023
-Bugs: 
+Bugs: Occasionally the connection to the database fails without warning. 
 Reflection: This assignment was managable, taking IS 315 and building Snowflake SQL Tables helped with 
 understanding with understanding what was required for the SQL portion and reviewing the slides made 
 the actaul calling of the database fairly straightforward. I was confused on how to connect to the database and GitHub

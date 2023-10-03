@@ -49,6 +49,6 @@ namespace Lab2.Model
         bool UpdateAirport(Airport currentAirport, string city, DateTime date, int rating);
     }
 }
-}
+
 
 
